@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Card from "./component/container";
+import Picture from "./component/cards";
 import Wrapper from "./component/container";
 import cards from "./cards.json";
 var shuffle = require('shuffle-array');
@@ -8,23 +8,15 @@ var shuffle = require('shuffle-array');
 class App extends Component {
   state = {
     cards,
-    cardsOrder : [],
     clicked: [],
     Score: 0,
-    game:""
+    game:"Gotta Catch 'Em All "
   };
 
 
 
-shuffleOnce = () =>{
-  const randomOrder= shuffle([1,2,3,4,5,6,7,8,9]);
-
-  console.log(randomOrder);
-  this.setState({cardsOrder:randomOrder})
-}
-
-isClicked = (id) =>{
-  this.shuffleOnce();
+PictureCli = (id) =>{
+  shuffle(cards);
 
   if (this.state.clicked.includes(id)) {
     this.setState({
@@ -35,11 +27,11 @@ isClicked = (id) =>{
 }else{
   this.setState({
     Score:this.state.Score+1,
-    clicked:this.state.clicked.push(id),
+    clicked:this.state.clicked.concat([id]),
     game:"Correct!"
   });
 }
-if(this.state.Score === 0){
+if(this.state.Score === 9){
   this.setState({
     Score: 0,
     clicked: [],
@@ -52,15 +44,14 @@ if(this.state.Score === 0){
 // render================
 
 render() {
-  let cards = this.state.cardsOrder
+
   return (
     <div className="App">
       <Wrapper>
         <header className="App-header">
           <h2 className="App-intro">
             <strong>
-              Try to click on each only once - clicking on the same card twice
-              will reset the game!
+            Gotta Catch 'Em All , but don't catch a pokemon twice
             </strong>
             <p className="Score">
               <strong>
@@ -68,12 +59,22 @@ render() {
               </strong>
             </p>
             <p className="game">
-              <strong>ganme status:{this.state.game}</strong>
+              <strong>Game status: {this.state.game}</strong>
             </p>
           </h2>
         </header>
-
+        <div className="App-card-wrapper">
+            {this.state.cards.map(card => (
+              <Picture
+                id={card.id}
+                key={card.id}
+                image={card.image}
+                PictureCli={this.PictureCli}
+              />
+            ))}
+          </div>
       </Wrapper>
+
     </div>
   );
 }

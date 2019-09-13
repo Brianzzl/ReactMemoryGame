@@ -1,0 +1,12 @@
+.Card {
+  background: paleturquoise;
+  margin: 1rem;
+  position: relative;
+  border: solid 3px black;
+  border-radius: 20px;
+}
+
+.Card > img {
+  height: 300px;
+  border-radius: 20px;
+}

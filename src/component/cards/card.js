@@ -1,12 +1,12 @@
 import React from "react";
-
+import "./style.css";
 
 const Card = props => (
   <div className="Card">
     <img
       alt={props.name}
       src={props.image}
-      onClick={() => props.cardClick(props.id)}
+      onClick={() => props.PictureCli(props.id)}
     />
   </div>
 );
